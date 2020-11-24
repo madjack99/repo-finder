@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { $store, updateStore } from './store';
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -20,6 +22,19 @@ const Button = styled.button`
   }
 `;
 
+const fetchPulls = async (user: string, repo: string) => {
+  const response = await fetch(
+    `https://api.github.com/repos/${user}/${repo}/pulls?state=all`
+  );
+  const data = await response.json();
+
+  if (data.message) {
+    updateStore('Nothing has been found');
+  } else {
+    updateStore(data);
+  }
+};
+
 const UserInputForm = () => {
   let [user, setUser] = React.useState('');
   let [repo, setRepo] = React.useState('');
@@ -38,9 +53,7 @@ const UserInputForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`https://api.github.com/repos/${user}/${repo}/pulls?state=all`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    fetchPulls(user, repo);
   };
 
   return (
