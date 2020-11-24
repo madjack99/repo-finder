@@ -1,6 +1,6 @@
 import { createEvent, createStore } from 'effector';
 
-interface IStore {
+export interface IStore {
   title: string;
   body: string;
   created_at: string;
@@ -9,6 +9,8 @@ interface IStore {
 
 export const updateStore = createEvent<IStore[] | string>();
 
-export const $store = createStore<IStore[] | string>([]);
+export const $store = createStore<IStore[] | string>(
+  'Please fill username and repo title'
+);
 
 $store.on(updateStore, (state, newState) => newState);

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { $store, updateStore } from './store';
+import { updateStore } from './store';
 
 const Form = styled.form`
   display: flex;
