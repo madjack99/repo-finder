@@ -1,7 +1,12 @@
 import React from 'react';
+import UserInputForm from './UserInputForm';
 
 function App() {
-  return <div>app</div>;
+  return (
+    <div>
+      <UserInputForm />
+    </div>
+  );
 }
 
 export default App;
